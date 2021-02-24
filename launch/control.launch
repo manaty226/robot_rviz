@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="rvizconfig" default="$(find vis_lecture)/launch/wheel_robot.rviz"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(find vis_lecture)/urdf/robot_car.urdf.xacro" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="publish_frequency" value="50"/>
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/> 
+  <node name="vis_joint_publisher" pkg="vis_lecture" type="vis_joint_publisher"/>
+  <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 10" />
+
+</launch>
